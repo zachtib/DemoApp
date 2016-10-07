@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.zachtib.demoapp.books.BooksPresenter;
 import com.zachtib.demoapp.books.IBooksPresenter;
+import com.zachtib.demoapp.books.IBooksService;
 
 import javax.inject.Singleton;
 
@@ -25,7 +26,7 @@ public class AppModule {
     }
 
     @Provides
-    IBooksPresenter providesBooksPresenter() {
-        return new BooksPresenter();
+    IBooksPresenter providesBooksPresenter(IBooksService service) {
+        return new BooksPresenter(service);
     }
 }
