@@ -52,6 +52,18 @@ public class BooksActivity extends AppCompatActivity implements IBooksView {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.onPause();
+    }
+
+    @Override
     public void showBooks(List<Book> books) {
         for (int i = 0; i < books.size(); i++) {
             Log.d(TAG, books.get(i).getTitle());

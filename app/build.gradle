@@ -28,6 +28,8 @@ dependencies {
 
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
 
     // Dagger2
     apt 'com.google.dagger:dagger-compiler:2.5'
@@ -41,4 +43,8 @@ dependencies {
     //Gson
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.1'
+
+    // Rx
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.2.1'
 }

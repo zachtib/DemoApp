@@ -3,12 +3,14 @@ package com.zachtib.demoapp.books;
 import android.util.Log;
 
 import com.zachtib.demoapp.books.model.Author;
+import com.zachtib.demoapp.books.model.Book;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 public class BooksPresenter implements IBooksPresenter {
     private final String TAG = "BooksPresenter";
@@ -16,37 +18,74 @@ public class BooksPresenter implements IBooksPresenter {
     private IBooksView view;
     private IBooksService service;
 
+    private CompositeSubscription subscription;
+
     public BooksPresenter(IBooksService service) {
         this.service = service;
     }
 
     @Override
     public void onResume() {
-
+        subscription = new CompositeSubscription();
+        getAuthors();
+        getBooks();
     }
 
     @Override
     public void onPause() {
-
+        if (!subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
     }
 
     @Override
     public void attachView(IBooksView view) {
         this.view = view;
-        getBooks();
+    }
+
+    private void getAuthors() {
+        subscription.add(
+            service.getAuthors()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<Author>>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                           Log.e(TAG, "Error getting authors", e);
+                        }
+
+                        @Override
+                        public void onNext(List<Author> authors) {
+                            view.showAuthors(authors);
+                        }
+                    }));
     }
 
     private void getBooks() {
-        service.getAuthors().enqueue(new Callback<List<Author>>() {
-            @Override
-            public void onResponse(Call<List<Author>> call, Response<List<Author>> response) {
-                view.showAuthors(response.body());
-            }
+        subscription.add(
+            service.getBooks()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<Book>>() {
+                        @Override
+                        public void onCompleted() {
 
-            @Override
-            public void onFailure(Call<List<Author>> call, Throwable t) {
-                Log.e(TAG, t.getMessage(), t);
-            }
-        });
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.e(TAG, "Error getting books", e);
+                        }
+
+                        @Override
+                        public void onNext(List<Book> books) {
+                            view.showBooks(books);
+                        }
+                    }));
     }
 }
