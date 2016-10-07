@@ -49,7 +49,16 @@ public class NetModule {
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit() {
-        
+    Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
+        return new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl(baseUrl)
+                .client(okHttpClient)
+                .build();
+    }
+  
+  	@Provides
+  	@Singleton
+  	BooksService provideBooksService(Retrofit retrofit) {
     }
 }
