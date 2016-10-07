@@ -2,15 +2,9 @@ package com.zachtib.demoapp.injection;
 
 import android.app.Application;
 
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.zachtib.demoapp.books.BookFactory;
-import com.zachtib.demoapp.books.BooksPresenter;
-import com.zachtib.demoapp.books.IBooksPresenter;
-import com.zachtib.demoapp.books.IBooksService;
 
 import javax.inject.Singleton;
 
@@ -64,16 +58,5 @@ public class NetModule {
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
                 .build();
-    }
-  
-  	@Provides
-  	@Singleton
-    IBooksService provideBooksService(Retrofit retrofit) {
-        return retrofit.create(IBooksService.class);
-    }
-
-    @Provides
-    IBooksPresenter providesBooksPresenter(IBooksService service) {
-        return new BooksPresenter(service);
     }
 }
