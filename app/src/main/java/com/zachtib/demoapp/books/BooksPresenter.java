@@ -2,6 +2,8 @@ package com.zachtib.demoapp.books;
 
 import android.util.Log;
 
+import com.zachtib.demoapp.books.model.Author;
+
 import java.util.List;
 
 import retrofit2.Call;

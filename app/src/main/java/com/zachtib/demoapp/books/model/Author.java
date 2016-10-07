@@ -1,4 +1,4 @@
-package com.zachtib.demoapp.books;
+package com.zachtib.demoapp.books.model;
 
 import com.zachtib.demoapp.mvp.BaseModel;
 

@@ -10,6 +10,8 @@ import android.view.View;
 
 import com.zachtib.demoapp.DemoApp;
 import com.zachtib.demoapp.R;
+import com.zachtib.demoapp.books.model.Author;
+import com.zachtib.demoapp.books.model.Book;
 
 import java.util.List;
 
