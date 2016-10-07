@@ -29,6 +29,7 @@ public class BooksPresenter implements IBooksPresenter {
         subscription = new CompositeSubscription();
         getAuthors();
         getBooks();
+        getSingleBook(1);
     }
 
     @Override
@@ -87,5 +88,29 @@ public class BooksPresenter implements IBooksPresenter {
                             view.showBooks(books);
                         }
                     }));
+    }
+
+    private void getSingleBook(int id) {
+        subscription.add(
+                service.getBook(id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Book>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.e(TAG, "Error getting book", e);
+                        }
+
+                        @Override
+                        public void onNext(Book book) {
+                            view.showBook(book);
+                        }
+                    })
+        );
     }
 }

@@ -64,6 +64,11 @@ public class BooksActivity extends AppCompatActivity implements IBooksView {
     }
 
     @Override
+    public void showBook(Book book) {
+        Log.d(TAG, "Got a single book: " + book.getTitle());
+    }
+
+    @Override
     public void showBooks(List<Book> books) {
         for (int i = 0; i < books.size(); i++) {
             Log.d(TAG, books.get(i).getTitle());
