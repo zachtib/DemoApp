@@ -2,10 +2,6 @@ package com.zachtib.demoapp.injection;
 
 import android.app.Application;
 
-import com.zachtib.demoapp.books.BooksPresenter;
-import com.zachtib.demoapp.books.IBooksPresenter;
-import com.zachtib.demoapp.books.IBooksService;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -23,10 +19,5 @@ public class AppModule {
     @Singleton
     Application providesApplication() {
         return application;
-    }
-
-    @Provides
-    IBooksPresenter providesBooksPresenter(IBooksService service) {
-        return new BooksPresenter(service);
     }
 }
