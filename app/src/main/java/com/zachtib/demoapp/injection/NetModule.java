@@ -5,6 +5,7 @@ import android.app.Application;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.zachtib.demoapp.books.IBooksService;
 
 import javax.inject.Singleton;
 
@@ -13,6 +14,7 @@ import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetModule {
@@ -59,6 +61,7 @@ public class NetModule {
   
   	@Provides
   	@Singleton
-  	BooksService provideBooksService(Retrofit retrofit) {
+    IBooksService provideBooksService(Retrofit retrofit) {
+        return retrofit.create(IBooksService.class);
     }
 }

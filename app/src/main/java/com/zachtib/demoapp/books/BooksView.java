@@ -20,5 +20,6 @@ public class BooksView extends AppCompatActivity implements IBooksView {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((DemoApp) getApplication()).getAppComponent().inject(this);
+        presenter.attachView(this);
     }
 }
